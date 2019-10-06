@@ -30,9 +30,14 @@ class functions():
             row = query_rows.fetchone()
             if row is None:
                 break
-            print('ID:', str(row[0]) + ', ' + 'Game name:', row[1] + ', ' + 'Genre:', row[2] + ', ' + 'Platform:', row[3] + ', ' + 'Price:', str(row[4]) + ',  ' + 'Phone:', row[5] +  'Location:', row[6] + ', ' + 'Latitude:', row[7] + ', ' + 'Longitude:', row[8])
+            print('ID:', str(row[0]) + ', ' + 'Game name:', row[1] + ', ' + 'Genre:', row[2] + ', ' + 'Platform:', row[3] + ', ' + 'Price:', str(row[4]) + ', ' + 'Phone:', row[5] + ', ' + 'Location:', row[6] + ', ' + 'Latitude:', str(row[7]) + ', ' + 'Longitude:', str(row[8]))
+
+    def readone(self, ID):
+        query = self.execute(f"SELECT * FROM Games WHERE ID = {ID}")
+        onegame = query.fetchone()
+        print(onegame)
 
 
-    
+
 
 

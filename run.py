@@ -9,3 +9,7 @@ games = functions(server, database, username, password)
 
 # games.create("'Metal Gear Solid 3'", "'Shooter'", "'PS2'", 15.99, "'07507364747'", "'HR5 3RU'" )
 
+# games.readall()
+
+# games.readone(1)
+
