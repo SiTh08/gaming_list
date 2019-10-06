@@ -8,8 +8,8 @@ class functions():
         self.database = database
         self.username = username
         self.password = password
-        self.conn_rdb = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER=' + self.server + ';DATABASE=' + self.database + ';UID=' + self.username + ';PWD=' + self.password)
-        self.cursor = self.conn_rdb.cursor()
+        self.conn_gdb = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER=' + self.server + ';DATABASE=' + self.database + ';UID=' + self.username + ';PWD=' + self.password)
+        self.cursor = self.conn_gdb.cursor()
 
     def execute(self, query):
         return self.cursor.execute(query)
@@ -19,7 +19,7 @@ class functions():
     def create(self, name, genre, platform, price, phone, location):
         query = f'INSERT INTO Games([Name], Genre, Platforms, Price, Phone, [Location]) VALUES ({name}, {genre}, {platform}, {price}, {phone}, {location})'
         self.execute(query)
-        self.conn_rdb.commit()
+        self.conn_gdb.commit()
 
 
 # As a user, I can read all games.
@@ -36,6 +36,28 @@ class functions():
         query = self.execute(f"SELECT * FROM Games WHERE ID = {ID}")
         onegame = query.fetchone()
         print(onegame)
+
+# Update functions
+
+    def updategame(self, ID, column1, value1):
+        self.execute(f"UPDATE Games SET {column1} = {value1} WHERE ID = {ID}")
+        self.conn_gdb.commit()
+
+    def updatelongnlat (self, ID):
+        query = self.execute(f"select [Location] from Games where ID = {ID}")
+        postcode = query.fetchone()
+        pc = ' '.join([row for row in postcode])
+        url = 'http://api.postcodes.io/postcodes/'
+        request_postcode = requests.get(url + pc)
+        post_code_dict = request_postcode.json()
+        details = post_code_dict
+        latitude = details['result']['longitude']
+        longitude = details['result']['latitude']
+        self.execute(f"UPDATE Games SET Latitude = {latitude}, Longitude = {longitude} WHERE ID = {ID}")
+        self.conn_gdb.commit()
+
+
+
 
 
 

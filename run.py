@@ -13,3 +13,7 @@ games = functions(server, database, username, password)
 
 # games.readone(1)
 
+# games.updategame(5, "Price", 39.99)
+
+games.updatelongnlat(6)
+
