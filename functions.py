@@ -22,4 +22,17 @@ class functions():
         self.conn_rdb.commit()
 
 
+# As a user, I can read all games.
+
+    def readall(self):
+        query_rows = self.execute('SELECT * FROM Games')
+        while True:
+            row = query_rows.fetchone()
+            if row is None:
+                break
+            print('ID:', str(row[0]) + ', ' + 'Game name:', row[1] + ', ' + 'Genre:', row[2] + ', ' + 'Platform:', row[3] + ', ' + 'Price:', str(row[4]) + ',  ' + 'Phone:', row[5] +  'Location:', row[6] + ', ' + 'Latitude:', row[7] + ', ' + 'Longitude:', row[8])
+
+
+    
+
 
