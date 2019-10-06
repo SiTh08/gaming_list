@@ -21,3 +21,5 @@ class functions():
         self.execute(query)
         self.conn_rdb.commit()
 
+
+
