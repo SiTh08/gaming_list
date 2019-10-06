@@ -39,9 +39,13 @@ class functions():
 
 # Update functions
 
+# Update game
+
     def updategame(self, ID, column1, value1):
         self.execute(f"UPDATE Games SET {column1} = {value1} WHERE ID = {ID}")
         self.conn_gdb.commit()
+
+# Update longitude and latitude for a location
 
     def updatelongnlat (self, ID):
         query = self.execute(f"select [Location] from Games where ID = {ID}")
@@ -55,6 +59,28 @@ class functions():
         longitude = details['result']['latitude']
         self.execute(f"UPDATE Games SET Latitude = {latitude}, Longitude = {longitude} WHERE ID = {ID}")
         self.conn_gdb.commit()
+
+# Delete a game.
+
+    def deleteagame (self, ID):
+        self.execute(f"DELETE FROM Games WHERE ID = '{ID}'")
+        self.conn_gdb.commit()
+
+# Add game to a text file.
+
+    def writegametotxt (self, ID):
+        query = self.execute(f"SELECT * FROM Games WHERE ID = {ID}")
+        string = str(query.fetchone())
+        try:
+            with open('games.txt', 'w') as opened_file:
+                opened_file.write(string)
+        except FileNotFoundError:
+            print('File not found.')
+
+
+
+
+
 
 
 
