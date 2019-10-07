@@ -1,7 +1,7 @@
 import pyodbc
 import requests
 
-class functions():
+class Functions():
 
     def __init__(self, server, database, username, password):
         self.server = server
