@@ -14,6 +14,9 @@ class functions():
     def execute(self, query):
         return self.cursor.execute(query)
 
+    def con_gdb(self):
+        return self.con_gdb()
+
 # As a user, I can create one game.
 
     def create(self, name, genre, platform, price, phone, location):
@@ -58,6 +61,19 @@ class functions():
         latitude = details['result']['longitude']
         longitude = details['result']['latitude']
         self.execute(f"UPDATE Games SET Latitude = {latitude}, Longitude = {longitude} WHERE ID = {ID}")
+        self.conn_gdb.commit()
+
+    def updatelongnlat2 (self, name):
+        query = self.execute(f"select [Location] from Games where [Name] = {name}")
+        postcode = query.fetchone()
+        pc = ' '.join([row for row in postcode])
+        url = 'http://api.postcodes.io/postcodes/'
+        request_postcode = requests.get(url + pc)
+        post_code_dict = request_postcode.json()
+        details = post_code_dict
+        latitude = details['result']['longitude']
+        longitude = details['result']['latitude']
+        self.execute(f"UPDATE Games SET Latitude = {latitude}, Longitude = {longitude} WHERE [Name] = {name}")
         self.conn_gdb.commit()
 
 # Delete a game.

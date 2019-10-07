@@ -15,8 +15,10 @@ games = functions(server, database, username, password)
 
 # games.updategame(5, "Price", 39.99)
 
-# games.updatelongnlat(6)
+# games.updatelongnlat(7)
+
+games.updatelongnlat2("'God of War'")
 
 # games.deleteagame()
 
-games.writegametotxt(1)
+# games.writegametotxt(1)
